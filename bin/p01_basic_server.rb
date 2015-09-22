@@ -10,7 +10,8 @@ server = WEBrick::HTTPServer.new(Port: 3000)
 trap('INT') { server.shutdown }
 
 server.mount_proc("/") do |request, response|
-  response.body = request.path
+  response['location'] = "http://google.com"
+  response.status = 302
 end
 
 server.start
