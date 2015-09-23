@@ -4,7 +4,7 @@ require_relative './session'
 module Phase4
   class ControllerBase < Phase3::ControllerBase
     def redirect_to(url)
-      super
+      super(url)
       session.store_session(res)
     end
 

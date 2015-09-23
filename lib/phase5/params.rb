@@ -48,12 +48,14 @@ module Phase5
         all_keys = parse_key(key)
         current = nested
 
-        all_keys[0...-1].each do |nested_key|
+        last_key = all_keys.pop
+
+        all_keys.each do |nested_key|
           current[nested_key] ||= {}
           current = current[nested_key]
         end
 
-        current[all_keys.last] = val
+        current[last_key] = val
       end
 
       nested

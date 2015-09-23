@@ -24,7 +24,6 @@ module Phase6
           route_params[name] = match_data[name]
         end
       end
-      p route_params
       c = controller_class.new(req, res, route_params)
       c.invoke_action(action_name)
     end
