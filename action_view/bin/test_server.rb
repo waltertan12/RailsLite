@@ -2,7 +2,9 @@ require 'webrick'
 require 'byebug'
 require_relative '../lib/controller_base'
 require_relative '../lib/flash'
-require_relative '../lib/phase6/router'
+require_relative '../lib/params'
+require_relative '../lib/router'
+require_relative '../lib/session'
 
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPRequest.html
@@ -33,7 +35,7 @@ class Cat
   end
 end
 
-class CatsController < Sandbox::ControllerBase
+class CatsController < ControllerBase
   protect_from_forgery
 
   def create
@@ -58,7 +60,7 @@ class CatsController < Sandbox::ControllerBase
   end
 end
 
-router = Phase6::Router.new
+router = Router.new
 router.draw do
   get  Regexp.new("^/cats$"), CatsController, :index
   get  Regexp.new("^/cats/new$"), CatsController, :new
