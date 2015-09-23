@@ -2,35 +2,38 @@ require 'webrick'
 require 'json'
 
 class Flash
+  include Enumerable
+
   def initialize(req)
     cookie = req.cookies.find { |c| c.name == "flash" } if req
     if cookie
-      cookie.expires = 1
       @now = JSON.parse(cookie.value)
     else
       @now = {}
     end
-    @flash = {}
+    @flashes = {}
   end
 
   def [](key)
-    if @now.empty?
-      JSON.parse(@flash.to_json)[key.to_s]
-    else
-      JSON.parse(@now.to_json)[key.to_s]
-    end
+    JSON.parse(@now.to_json)[key.to_s] || 
+    JSON.parse(@flashes.to_json)[key.to_s]
   end
 
   def []=(key, value)
-    @flash[key] = value
-    @now[key] = value
+    @flashes[key] = value
   end
 
   def store_flash(res)
-    res.cookies << WEBrick::Cookie.new(
+    cookie = WEBrick::Cookie.new(
       "flash",
-      @flash.to_json
+      @flashes.to_json
     )
+    cookie.path = "/"
+    res.cookies << cookie
+  end
+
+  def flashes
+    @flashes
   end
 
   def now
@@ -39,5 +42,13 @@ class Flash
 
   def now=(key, value)
     @now[key] = value
+  end
+
+  def each(&block)
+    @now.merge(@flashes).each(&block)
+  end
+
+  def empty?
+    @flashes.empty?
   end
 end

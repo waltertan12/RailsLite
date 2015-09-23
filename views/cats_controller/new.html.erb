@@ -1,12 +1,31 @@
-<%= flash[:test] %>
-<form action="/cats" method="POST">
-  <label>Name
-    <input type="text" name="cat[name]" value="<%= @cat.name %>">
-  </label>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Cat | CAT APP</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <ul>
+    <% flash.each do |type, message| %>
+      <li><%= type %>: <%= message %></li>
+    <% end %>
+    </ul>
+    <h1>Create a New Cat</h1>
+    <form action="/cats" method="POST">
+      <input type="hidden"
+             name="authenticity_token"
+             value="<%= form_authenticity_token %>">
+      <label>Name<br>
+        <input type="text" name="cat[name]" value="<%= @cat.name %>">
+      </label><br>
 
-  <label>Owner
-    <input type="text" name="cat[owner]" value="<%= @cat.owner %>">
-  </label>
-
-  <input type="submit">
-</form>
+      <label>Owner<br>
+        <input type="text" name="cat[owner]" value="<%= @cat.owner %>">
+      </label><br>
+      <br>
+      <input type="submit" value="Create a Cat!">
+    </form>
+  </div>
+</body>
+</html>

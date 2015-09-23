@@ -33,14 +33,16 @@ class Cat
   end
 end
 
-class CatsController < Bonus::ControllerBase
+class CatsController < Sandbox::ControllerBase
+  protect_from_forgery
+
   def create
     @cat = Cat.new(params["cat"])
     if @cat.save
-      flash[:test] = "Successfully posted cat"
+      flash[:success] = "Successfully posted cat"
       redirect_to("/cats")
     else
-      flash.now[:test] = "Cat could not be saved"
+      flash.now[:Error] = "Cat could not be saved"
       render :new
     end
   end
@@ -56,16 +58,16 @@ class CatsController < Bonus::ControllerBase
   end
 end
 
+router = Phase6::Router.new
+router.draw do
+  get  Regexp.new("^/cats$"), CatsController, :index
+  get  Regexp.new("^/cats/new$"), CatsController, :new
+  post Regexp.new("^/cats$"), CatsController, :create
+end
+
 server = WEBrick::HTTPServer.new(Port: 3000)
 server.mount_proc('/') do |req, res|
-  case [req.request_method, req.path]
-  when ['GET', '/cats']
-    CatsController.new(req, res, {}).index
-  when ['POST', '/cats']
-    CatsController.new(req, res, {}).create
-  when ['GET', '/cats/new']
-    CatsController.new(req, res, {}).new
-  end
+  route = router.run(req, res)
 end
 
 trap('INT') { server.shutdown }
