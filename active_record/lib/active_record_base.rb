@@ -1,9 +1,10 @@
 require_relative 'db_connection'
+require_relative './associatable'
+require_relative './searchable'
+require_relative './validatable'
 require 'active_support/inflector'
-# NB: the attr_accessor we wrote in phase 0 is NOT used in the rest
-# of this project. It was only a warm up.
 
-class SQLObject
+class ActiveRecordBase
   def self.columns
     columns = DBConnection.execute2(<<-SQL)
       SELECT
@@ -142,10 +143,18 @@ class SQLObject
   end
 
   def save
-    if id
-      update
+    if self.class.valid?(self)
+      if id
+        update
+      else
+        insert
+      end
     else
-      insert
+      false
     end
   end
+  
+  extend Validatable
+  extend Associatable
+  extend Searchable
 end

@@ -1,5 +1,3 @@
-require_relative '01_sql_object'
-
 module Validatable
   def validates(column, options = {})
     @to_validate = {} if @to_validate.nil?
@@ -38,26 +36,21 @@ module Validatable
   end
 end
 
-module ValidatableInstance
-  # Overwrite instance method #save
-  def self.included(base)
-    base.class_eval do
-      def save
-        if self.class.valid?(self)
-          if id
-            update
-          else
-            insert
-          end
-        else
-          false
-        end
-      end
-    end
-  end
-end
-
-class SQLObject 
-  extend Validatable
-  include ValidatableInstance
-end
+# module ValidatableInstance
+#   # Overwrite instance method #save
+#   def self.included(base)
+#     base.class_eval do
+#       def save
+#         if self.class.valid?(self)
+#           if id
+#             update
+#           else
+#             insert
+#           end
+#         else
+#           false
+#         end
+#       end
+#     end
+#   end
+# end

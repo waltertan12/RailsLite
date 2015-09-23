@@ -1,9 +1,9 @@
-require '05_validatable'
+require 'active_record_base'
 
 describe 'Validatable' do 
   describe '#validates presence' do
     before(:each) do
-      class Cat < SQLObject
+      class Cat < ActiveRecordBase
         self.finalize!
       end
     end
