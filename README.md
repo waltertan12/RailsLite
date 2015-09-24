@@ -7,4 +7,4 @@ Manages database
 ### ActionView
 Manages controllers and render views
 
-Type `ruby bin/router_server.rb` in the console to run the web app using the Rails Lite framework.
+Type `ruby bin/server.rb` in the console to run the web app using the Rails Lite framework. To access the RailsLite console, type `ruby bin/console.rb`.

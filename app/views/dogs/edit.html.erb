@@ -17,7 +17,7 @@
 
     <h1>Edit <%= @dog.name %></h1>
     <form action="/dogs/<%= @dog.id %>" method="POST">
-      <input type="hidden" name="_method" value="PATCH">
+      <input type="hidden" name="_method" value='PATCH'>
 
       <input type="hidden"
              name="authenticity_token"
