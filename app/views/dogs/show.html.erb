@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOG APP</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <ul>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>">
+          <li><%= message %></li>
+        </div>
+      <% end %>
+    </ul>
+
+    <h1><%= @dog.name %></h1>
+
+    
+    <br>
+    <a href="/dogs">Back to Dog Index</a>
+  </div>
+</body>
+</html>
+

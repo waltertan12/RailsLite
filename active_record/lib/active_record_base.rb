@@ -107,54 +107,57 @@ class ActiveRecordBase
   end
 
   def insert
-    column_names   = self.class
-                      .columns
-                      .drop(1)
-                      .map { |elem| elem.to_s }.join(", ")
-    num_of_columns = self.class
-                      .columns
-                      .drop(1)
-                      .length
-    question_marks = (["?"] * num_of_columns).join(", ")
+    if self.class.valid?(self)
+      column_names   = self.class
+                        .columns
+                        .drop(1)
+                        .map { |elem| elem.to_s }.join(", ")
+      num_of_columns = self.class
+                        .columns
+                        .drop(1)
+                        .length
+      question_marks = (["?"] * num_of_columns).join(", ")
 
-    updated_attributes = attribute_values.drop(1)
-    DBConnection.execute2(<<-SQL, *updated_attributes)
-      INSERT INTO
-        #{self.class.table_name} (#{column_names})
-      VALUES
-        (#{question_marks})
-    SQL
+      updated_attributes = attribute_values.drop(1)
+      DBConnection.execute2(<<-SQL, *updated_attributes)
+        INSERT INTO
+          #{self.class.table_name} (#{column_names})
+        VALUES
+          (#{question_marks})
+      SQL
 
-
-    self.id = DBConnection.last_insert_row_id
+      self.id = DBConnection.last_insert_row_id
+    else
+      false
+    end
   end
 
   def update
-    set_string   = self.class
-                      .columns
-                      .drop(1)
-                      .map { |elem| elem.to_s + (" = ?")}.join(", ")
-    updated_attributes = attribute_values.drop(1)
+    if self.class.valid?(self)
+      set_string   = self.class
+                         .columns
+                         .drop(1)
+                         .map { |elem| elem.to_s + (" = ?")}.join(", ")
+      updated_attributes = attribute_values.drop(1)
 
-    DBConnection.execute2(<<-SQL, *updated_attributes)
-      UPDATE
-        #{self.class.table_name}
-      SET
-        #{set_string}
-      WHERE
-        #{self.class.table_name}.id = #{id}
-    SQL
+      DBConnection.execute2(<<-SQL, *updated_attributes)
+        UPDATE
+          #{self.class.table_name}
+        SET
+          #{set_string}
+        WHERE
+          #{self.class.table_name}.id = #{id}
+      SQL
+    else
+      false
+    end
   end
 
   def save
-    if self.class.valid?(self)
-      if id
-        update
-      else
-        insert
-      end
+    if id
+      update
     else
-      false
+      insert
     end
   end
 end

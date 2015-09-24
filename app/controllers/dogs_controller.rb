@@ -1,15 +1,14 @@
-require_relative '../../action_view/lib/action_view_manifest'
-require_relative '../../active_record/lib/active_record_manifest'
-require_relative '../models/dog'
-
 class DogsController < ControllerBase
   protect_from_forgery
 
+  def new
+    @dog = Dog.new
+    render :new
+  end
+
   def create
-    @dog = Dog.new(params["dog"])
-    puts "Is the dog valid? #{Dog.valid?(@dog)}"
-    p params
-    p @dog
+    @dog = Dog.new(params[:dog])
+
     if @dog.save
       flash[:success] = "Successfully created a new dog"
       redirect_to("/dogs")
@@ -19,9 +18,26 @@ class DogsController < ControllerBase
     end
   end
 
-  def new
-    @dog = Dog.new
-    render :new
+  def edit
+    @dog = Dog.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @dog = Dog.find(params[:id])
+
+    if @dog.update(params[:dog])
+      flash[:success] = "Successfully updated a dog"
+      redirect_to("/dogs/#{@dog.id}")
+    else
+      flash.now[:danger] = "Dog could not be updated"
+      render :edit
+    end
+  end
+
+  def show
+    @dog = Dog.find(params[:id])
+    render :show
   end
 
   def index

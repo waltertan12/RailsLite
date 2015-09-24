@@ -21,12 +21,16 @@
         <th>Dog</th>
         <th></th>
         <th>Owner</th>
+        <th>Show</th>
+        <th>Edit</th>
       </tr>
       <% @dogs.each do |dog|%>
         <tr>
           <td><%= dog.name %></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td><%= dog.owner %></td>
+          <td><a href="dogs/<%= dog.id %>">show</a></td>
+          <td><a href="dogs/<%= dog.id %>/edit">edit</a></td>
         </tr>
       <% end %>
     </table>
