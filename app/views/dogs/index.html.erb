@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOG APP</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+    <ul>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>">
+          <li><%= message %></li>
+        </div>
+      <% end %>
+    </ul>
+
+    <h1>ALL THE DOGS</h1>
+
+    <table>
+      <tr>
+        <th>Dog</th>
+        <th></th>
+        <th>Owner</th>
+      </tr>
+      <% @dogs.each do |dog|%>
+        <tr>
+          <td><%= dog.name %></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td><%= dog.owner %></td>
+        </tr>
+      <% end %>
+    </table>
+    <br>
+    <a href="/dogs/new">Create a new dog!</a>
+  </div>
+</body>
+</html>
+

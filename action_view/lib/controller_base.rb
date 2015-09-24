@@ -2,6 +2,10 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'active_support/inflector'
 require 'erb'
+require_relative '../../config/root_path'
+require_relative 'params'
+require_relative 'session'
+require_relative 'flash'
 
 class ControllerBase
   attr_reader :req, :res
@@ -49,7 +53,7 @@ class ControllerBase
   end
 
   def render(template_name)
-    file_path = "views/#{self.class.to_s.underscore}/#{template_name}.html.erb"
+    file_path = "#{ROOT_PATH}app/views/#{self.class.to_s.underscore.sub("_controller","")}/#{template_name}.html.erb"
     template = File.read(file_path)
     content = ERB.new(template).result(binding)
     render_content(content, "text/html")
@@ -93,9 +97,12 @@ class ControllerBase
     render(name) unless already_built_response?
   end
 
+  def params
+    @params
+  end
+
   def valid_authenticity_token?
     cookie = req.cookies.find { |c| c.name == "authenticity_token" }
-    puts "Truly authentic experience?: #{!cookie.nil? && (params[:authenticity_token] == cookie.value)}"
     cookie && (params[:authenticity_token] == cookie.value)
   end
 end

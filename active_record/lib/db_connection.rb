@@ -1,31 +1,41 @@
 require 'sqlite3'
 
-# https://tomafro.net/2010/01/tip-relative-paths-with-file-expand-path
-ROOT_FOLDER = File.join(File.dirname(__FILE__), '..')
-CATS_SQL_FILE = File.join(ROOT_FOLDER, 'cats.sql')
-CATS_DB_FILE = File.join(ROOT_FOLDER, 'cats.db')
+require_relative '../../config/root_path'
 
 class DBConnection
   def self.open(db_file_name)
     @db = SQLite3::Database.new(db_file_name)
+    
+    tables = @db.execute(<<-SQL)
+      SELECT 
+        name 
+      FROM 
+        sqlite_master
+    SQL
+
+    if tables.empty?
+      self.reset(db_file_name, SQL_FILE)
+    end
+
     @db.results_as_hash = true
     @db.type_translation = true
 
     @db
   end
 
-  def self.reset
-    commands = [
-      "rm '#{CATS_DB_FILE}'",
-      "cat '#{CATS_SQL_FILE}' | sqlite3 '#{CATS_DB_FILE}'"
+  def self.reset(db_file_name, sql_file)
+    commands = [ 
+      "rm '#{db_file_name}' ", 
+      "cat '#{sql_file}' | sqlite3 '#{db_file_name}'" 
     ]
 
     commands.each { |command| `#{command}` }
-    DBConnection.open(CATS_DB_FILE)
+    DBConnection.open(db_file_name)
   end
 
   def self.instance
-    reset if @db.nil?
+    # reset if @db.nil?
+    open(DB_FILE) if @db.nil?
 
     @db
   end
@@ -47,7 +57,6 @@ class DBConnection
   end
 
   private
-
   def initialize(db_file_name)
   end
 end

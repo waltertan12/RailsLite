@@ -35,22 +35,3 @@ module Validatable
     end
   end
 end
-
-# module ValidatableInstance
-#   # Overwrite instance method #save
-#   def self.included(base)
-#     base.class_eval do
-#       def save
-#         if self.class.valid?(self)
-#           if id
-#             update
-#           else
-#             insert
-#           end
-#         else
-#           false
-#         end
-#       end
-#     end
-#   end
-# end

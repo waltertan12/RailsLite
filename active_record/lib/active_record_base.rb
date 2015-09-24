@@ -5,6 +5,10 @@ require_relative './validatable'
 require 'active_support/inflector'
 
 class ActiveRecordBase
+  extend Validatable
+  extend Associatable
+  extend Searchable
+
   def self.columns
     columns = DBConnection.execute2(<<-SQL)
       SELECT
@@ -153,8 +157,4 @@ class ActiveRecordBase
       false
     end
   end
-  
-  extend Validatable
-  extend Associatable
-  extend Searchable
 end

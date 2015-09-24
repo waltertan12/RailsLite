@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Dog | DOG APP</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container">
+
+    <ul>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>">
+          <%= message %><br>
+        </div>
+      <% end %>
+    </ul>
+
+    <h1>Create a New Dog</h1>
+    <form action="/dogs" method="POST">
+      <input type="hidden"
+             name="authenticity_token"
+             value="<%= form_authenticity_token %>">
+      <label>Name<br>
+        <input type="text" name="dog[name]" value="<%= @dog.name %>">
+      </label><br>
+
+      <label>Owner<br>
+        <input type="text" name="dog[owner]" value="<%= @dog.owner %>">
+      </label><br>
+      <br>
+      <input type="submit" value="Create a Dog!">
+    </form>
+    <br>
+    <a href="/dogs">Back to Dog Index</a>
+  </div>
+</body>
+</html>
