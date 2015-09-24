@@ -2,7 +2,7 @@
 A simplified version of the Ruby on Rails framework.
 
 ### ActiveRecordLite
-Handles database level
+Manages database
 
 ### ActionView
 Manages controllers and render views

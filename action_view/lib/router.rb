@@ -61,6 +61,11 @@ class Router
     # routes[http_method] if routes[http_method].matches?(req)
   end
 
+  # TODO: Add helper routes method to make model_path
+  def helper_routes
+    
+  end
+
   # either throw 404 or call run on a matched route
   def run(req, res)
     matched_route = match(req)
