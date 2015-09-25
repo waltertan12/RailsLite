@@ -1,6 +1,4 @@
 require 'webrick'
-require_relative '../action_view/lib/action_view_manifest'
-require_relative '../active_record/lib/active_record_manifest'
 require_relative './include'
 
 server = WEBrick::HTTPServer.new(Port: 3000)
