@@ -1,3 +1,3 @@
-ROOT_PATH = "/media/walter/5434535934533CE4/Users/walte/OneDrive/Documents/workspace/RailsLite/"
-DB_FILE  = File.join(ROOT_PATH, 'db/database.db')
-SQL_FILE = File.join(ROOT_PATH, 'db/database.sql')
+ROOT_PATH = File.join(File.dirname(__FILE__), "../")
+DB_FILE   = File.join(ROOT_PATH, 'db/database.db')
+SQL_FILE  = File.join(ROOT_PATH, 'db/database.sql')

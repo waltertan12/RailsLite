@@ -2,7 +2,8 @@ require_relative '../config/root_path'
 
 def require_all_files
   folders = [
-    "lib",
+    "action_view/lib",
+    "active_record/lib",
     "app/controllers",
     "app/models",
     "config"

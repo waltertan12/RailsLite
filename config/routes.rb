@@ -1,5 +1,4 @@
-require_relative '../action_view/lib/action_view_manifest'
-require_relative '../app/controllers/dogs_controller'
+require_relative '../bin/include'
 
 ROUTER = Router.new
 ROUTER.draw do
