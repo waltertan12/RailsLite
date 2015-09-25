@@ -57,12 +57,12 @@ class Router
   # should return the route that matches this request
   def match(req)
     params = Params.new(req)
-
-    # puts "Params: #{params[:_method]}"
-    # puts "Request Method: #{req.request_method}"
-    # puts "\"POST\": #{req.request_method == "POST"}"
-    # puts ":POST: #{req.request_method == :POST}"
-    # puts "#{routes}"
+    puts "Request: #{req}"
+    puts "Params: #{params[:_method]}"
+    puts "Request Method: #{req.request_method}"
+    puts "\"DELETE\": #{req.request_method == "DELETE"}"
+    puts ":DELETE: #{req.request_method == :DELETE}"
+    puts "#{routes}"
 
     if req.request_method == "POST" && params[:_method]
       new_method = params[:_method].downcase.to_sym

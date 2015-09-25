@@ -44,4 +44,10 @@ class DogsController < ControllerBase
     @dogs = Dog.all
     render :index
   end
+
+  def destroy
+    @dog = Dog.find(params[:id])
+    @dog.destroy
+    redirect_to("/dogs")
+  end
 end

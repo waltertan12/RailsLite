@@ -157,6 +157,15 @@ class ActiveRecordBase
     end
   end
 
+  def destroy
+    DBConnection.execute2(<<-SQL, id)
+      DELETE FROM 
+        #{self.class.table_name}
+      WHERE 
+        id = ?
+    SQL
+  end
+
   def save
     if id
       update
