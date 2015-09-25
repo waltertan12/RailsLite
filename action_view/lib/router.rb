@@ -56,9 +56,20 @@ class Router
 
   # should return the route that matches this request
   def match(req)
+    params = Params.new(req)
+
+    # puts "Params: #{params[:_method]}"
+    # puts "Request Method: #{req.request_method}"
+    # puts "\"POST\": #{req.request_method == "POST"}"
+    # puts ":POST: #{req.request_method == :POST}"
+    # puts "#{routes}"
+
+    if req.request_method == "POST" && params[:_method]
+      new_method = params[:_method].downcase.to_sym
+      req.instance_variable_set("@request_method", new_method)
+    end
+
     routes.find { |route| route.matches?(req) }
-    # http_method = req.request_method.downcase.to_sym
-    # routes[http_method] if routes[http_method].matches?(req)
   end
 
   # TODO: Add helper routes method to make model_path

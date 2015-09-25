@@ -132,7 +132,11 @@ class ActiveRecordBase
     end
   end
 
-  def update
+  def update(new_attributes = {})
+    new_attributes.each do |name, value|
+      attributes[name.downcase.to_sym] = value
+    end
+
     if self.class.valid?(self)
       set_string   = self.class
                          .columns
