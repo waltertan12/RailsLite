@@ -18,4 +18,4 @@ Manages controllers and renders views
 cd AppName
 railslite server
 ````
-4. Using a web browser, go to `http://localhost:3000/index`. You'll see a web page rendering 'Hello, RailsLite!'
+4. Using a web browser, go to `http://localhost:3000`. You'll see a web page rendering 'Hello, RailsLite!'
