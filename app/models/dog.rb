@@ -4,5 +4,5 @@ class Dog < ActiveRecordBase
   validates :owner, presence: true
   validates :owner, length: { minimum: 1 }
 
-  finalize!
+  # finalize!
 end

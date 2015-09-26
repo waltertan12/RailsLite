@@ -1,3 +1,5 @@
+#!/user/bin/env ruby
+
 require 'webrick'
 require_relative './include'
 

@@ -18,10 +18,12 @@ class ActiveRecordBase
     SQL
 
     method_names = columns.first.map {|item| item.to_sym}
+    self.finalizer(method_names)
+    method_names
   end
 
-  def self.finalize!
-    self.columns.each do |method_name|
+  def self.finalizer(columns)
+    columns.each do |method_name|
       define_method(method_name) do
         attributes[method_name]
       end
