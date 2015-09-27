@@ -51,7 +51,7 @@ class Router
   [:get, :post, :put, :patch, :delete].each do |http_method|
     define_method(http_method) do |pattern, controller_class, action_name|
       add_route(pattern, http_method, controller_class, action_name)
-      create_helper_route(pattern, controller_class)
+      create_helper_route(pattern, controller_class) if http_method == :get
     end
   end
 
@@ -74,15 +74,18 @@ class Router
 
     controller_class.send(:define_method, "#{method_name}") do |args = nil|
         path = "/"
-
-        case words.length
-          when 1
+        if words.length == 1
             path += "#{words[0]}"
-          when 2 && args.nil?
-            path +="#{words[1]}/#{words[0]}"
-          when 2 && args
+        elsif words.length == 2
+          if args
             path +="#{words[1]}/#{args.id}/#{words[0]}"
+          else
+            path +="#{words[1]}/#{words[0]}"
+          end
         end
+
+        puts "Words: #{words}"
+        puts "Method Name: #{method_name},Helper Path: #{path}"
 
         path
       end
