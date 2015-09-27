@@ -2,6 +2,7 @@ require_relative '../bin/include'
 
 ROUTER = Router.new
 ROUTER.draw do
+  get     Regexp.new("^/$"),                DogsController, :index
   get     Regexp.new("^/dogs$"),            DogsController, :index
   get     Regexp.new("^/dogs/new$"),        DogsController, :new
   post    Regexp.new("^/dogs$"),            DogsController, :create

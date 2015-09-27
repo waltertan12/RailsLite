@@ -3,9 +3,19 @@
 <head>
   <title>DOG APP</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Pacifico|Cookie|Comfortaa|Ubuntu|Varela+Round">
+  <style>
+    body {
+      font-family: "Varela Round";
+    }
+  </style>
 </head>
 <body>
   <div class="container">
+    <div class="jumbotron">
+      <h1>DOG APP</h1>
+      <p><em>A comprehensive list of all dogs ever</em></p>
+    </div>
     <ul>
       <% flash.each do |type, message| %>
         <div class="alert alert-<%= type %>">
@@ -21,21 +31,25 @@
         <th>Dog</th>
         <th></th>
         <th>Owner</th>
-        <th>Show</th>
-        <th>Edit</th>
+
       </tr>
       <% @dogs.each do |dog|%>
         <tr>
           <td><%= dog.name %></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td><%= dog.owner %></td>
-          <td><a href="dogs/<%= dog.id %>">show</a></td>
-          <td><a href="dogs/<%= dog.id %>/edit">edit</a></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <!-- <td><a href="dogs/<#%= dog.id %>">show</a></td> -->
+          <td><a href="<%= dogs_path(dog) %>">show</a></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <!-- <td><a href="dogs/<%#= dog.id %>/edit">edit</a></td> -->
+          <td><a href="<%= edit_dogs_path(dog) %>">edit</a></td>
+
         </tr>
       <% end %>
     </table>
     <br>
-    <a href="/dogs/new">Create a new dog!</a>
+    <a href="<%= new_dogs_path %>">Create a new dog!</a>
   </div>
 </body>
 </html>
