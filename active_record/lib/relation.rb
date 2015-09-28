@@ -1,6 +1,4 @@
 class Relation
-  include Enumerable
-
   attr_reader :klass, :table, :values, :loaded, :to_sql
 
   def initialize(klass, table, values = {})
@@ -11,10 +9,20 @@ class Relation
   end
 
   def where(values)
-    Relation.new(@klass, 
-                 @table, 
-                 @values.merge(values)
-    )
+    case values
+    when Hash
+      Relation.new(@klass, @table, @values.merge(values))
+    when String
+      r = Relation.new(@klass, @table, @values)
+      r.get_sql
+      # determine if "AND" is needed
+      conjunction = ""
+      conjunction += "AND" if r.to_sql.match("AND")
+
+      additional_query = r.to_sql + " #{conjunction} #{values}"
+      r.instance_variable_set("@to_sql", additional_query)
+      r
+    end
   end
 
   def get_sql
@@ -22,26 +30,27 @@ class Relation
       "#{column_name} = ?"
     end.join(" AND ")
 
-    <<-SQL
+    @to_sql = <<-SQL
       SELECT
         *
       FROM
         #{@table}
       WHERE
         #{where_string}
-    SQL
+      SQL
+    @to_sql.chomp!
   end
 
   def execute_query
     @loaded = true
-    @to_sql = get_sql
+    @to_sql ||= get_sql
 
     DBConnection.execute2(@to_sql, values.values)
   end
 
   def load
     unless loaded?
-      @records = execute_query.map { |attributes| klass.new(attributes) }
+      @records = execute_query.drop(1).map { |attributes| klass.new(attributes) }
     end
 
     self
@@ -53,6 +62,14 @@ class Relation
 
   def to_a
     @records
+  end
+
+  def reset
+    @klass = nil
+    @table = nil
+    @to_sql = nil
+    @loaded = false
+    @records = nil
   end
 
   def ==(other)
