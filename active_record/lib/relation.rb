@@ -18,6 +18,7 @@ class Relation
       # determine if "AND" is needed
       conjunction = ""
       conjunction += "AND" if r.to_sql.match("AND")
+      conjunction += "OR" if r.to_sql.match("OR")
 
       additional_query = r.to_sql + " #{conjunction} #{values}"
       r.instance_variable_set("@to_sql", additional_query)
