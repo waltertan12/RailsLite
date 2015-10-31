@@ -71,7 +71,6 @@ class Router
   def create_helper_route(pattern, controller_class)
     words = pattern.source.scan(/\/(\w+)/).flatten.reverse
     method_name = find_route_name(pattern)
-    puts method_name
 
     controller_class.send(:define_method, "#{method_name}") do |args = nil|
         path = "/"
@@ -88,9 +87,6 @@ class Router
             path +="#{words[1]}/#{words[0]}"
           end
         end
-
-        puts "Words: #{words}"
-        puts "Method Name: #{method_name},Helper Path: #{path}"
 
         path
       end

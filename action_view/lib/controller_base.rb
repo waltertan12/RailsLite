@@ -33,7 +33,9 @@ class ControllerBase
     end 
     self.res['location'] = url
     self.res.status = 302
+
     @already_built_response = true
+    
     session.store_session(res)
     flash.store_flash(res)
   end
@@ -54,6 +56,7 @@ class ControllerBase
 
   def render(template_name)
     file_path = "#{ROOT_PATH}app/views/#{self.class.to_s.underscore.sub("_controller","")}/#{template_name}.html.erb"
+
     template = File.read(file_path)
     content = ERB.new(template).result(binding)
     render_content(content, "text/html")
@@ -85,7 +88,7 @@ class ControllerBase
       if valid_authenticity_token?
         invoke(name)
       else
-        raise "Nononononononono"
+        fail "Invalid authenticity token"
       end
     else
       invoke(name)

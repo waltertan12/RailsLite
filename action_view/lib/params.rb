@@ -60,8 +60,6 @@ class Params
     nested
   end
 
-  # this should return an array
-  # user[address][street] should return ['user', 'address', 'street']
   def parse_key(key)
     key.split(/\]\[|\[|\]/)
   end
