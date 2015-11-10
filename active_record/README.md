@@ -14,3 +14,14 @@ class ClassName < ActiveRecordBase
 end
 ````
 Unlike normal Rails, you cannot write an #initialize method in the class. The columns you declare in the `db/schema.sql` file dictates the instance variables in each class.
+
+### Schema
+Define the schema for the application in the `db/schema.sql` file. Unfortunately, this must be written in pure SQL:
+
+````SQL
+CREATE TABLE dogs (
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  happiness_level INTEGER NOT NULL
+);
+````
