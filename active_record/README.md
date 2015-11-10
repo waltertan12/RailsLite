@@ -22,6 +22,45 @@ Define the schema for the application in the `db/schema.sql` file. Unfortunately
 CREATE TABLE dogs (
   id INTEGER PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  happiness_level INTEGER NOT NULL
+  happiness_level INTEGER NOT NULL,
+  human_id INTEGER NOT NULL
 );
+
+CREATE TABLE humans (
+  id INTEGER PRIMARY KEY,
+  name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE houses (
+  id INTEGER PRIMARY KEY,
+  human_id INTEGER NOT NULL
+);
+
+````
+
+### Associations
+RailsLite supports `has_one`, `has_many`, `has_one_through`, and `has_many_through` assocations. Here's an overview of how to use these features:
+
+````ruby
+class Dog
+  belongs_to :human, {
+    foreign_key: "human_id", 
+    primary_key: "id", 
+    class_name: "Human"
+  }
+end
+
+class Human
+  has_many :dogs
+  has_one :house
+end
+
+class House
+  belongs_to :human, {
+    foreign_key: "human_id", 
+    primary_key: "id", 
+    class_name: "Human"
+  }
+  has_many_through :dogs, :human
+end
 ````
