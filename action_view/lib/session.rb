@@ -7,7 +7,7 @@ class Session
   def initialize(req)
     # data = req.cookies.find {|c| c.name == '_rails_lite_app'}
     data = req.cookies['_rails_lite_app']
-    if data
+    if data && data != "{}"
       @cookie = JSON.parse(data.value)
     else
       @cookie = {}
@@ -25,9 +25,7 @@ class Session
   # serialize the hash into json and save in a cookie
   # add to the responses cookies
   def store_session(res)
-    res.cookies << WEBrick::Cookie.new(
-      "_rails_lite_app", 
-      @cookie.to_json
-    )
+    cookie = { path: '/', value: @cookie.to_json }
+    res.set_cookie("_rails_lite_app", cookie)
   end
 end

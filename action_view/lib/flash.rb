@@ -26,12 +26,12 @@ class Flash
   end
 
   def store_flash(res)
-    cookie = WEBrick::Cookie.new(
-      "flash",
-      @flashes.to_json
-    )
-    cookie.path = "/"
-    res.cookies << cookie
+    # cookie = WEBrick::Cookie.new(
+    #   "flash",
+    #   @flashes.to_json
+    # )
+    # cookie.path = "/"
+    # res.cookies << cookie
   end
 
   def flashes

@@ -47,7 +47,7 @@ class ControllerBase
     if already_built_response? 
       fail "Cannot redirect or render more than once"
     end  
-    debugger
+    
     # self.res.content_type = content_type
     # self.res.body = content
     res.write(content)
@@ -75,9 +75,11 @@ class ControllerBase
 
   def form_authenticity_token
     token = SecureRandom.urlsafe_base64(100)
-    cookie = WEBrick::Cookie.new("authenticity_token", token.to_json)
-    cookie.path = "/"
-    res.cookies << cookie
+    # cookie = WEBrick::Cookie.new("authenticity_token", token.to_json)
+    cookie = {path: "/", value: token.to_json}
+    res.set_cookie("_rails_lite_app", cookie)
+    # cookie.path = "/"
+    # res.cookies << cookie
     token
   end
 
@@ -108,7 +110,8 @@ class ControllerBase
   end
 
   def valid_authenticity_token?
-    cookie = req.cookies.find { |c| c.name == "authenticity_token" }
-    cookie && (params[:authenticity_token] == cookie.value)
+    # cookie = req.cookies.find { |c| c.name == "authenticity_token" }
+    cookie = req["_rails_lite_app"]
+    cookie && (params[:authenticity_token] == cookie[:value])
   end
 end
