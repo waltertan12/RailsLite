@@ -32,7 +32,7 @@ class Params
   # should return
   # { "user" => { "address" => { "street" => "main", "zip" => "89436" } } }
   def parse_www_encoded_form(www_encoded_form)
-    if www_encoded_form
+    if www_encoded_form && www_encoded_form.length > 0
       hashed = Hash[URI.decode_www_form(www_encoded_form)]
       nest(hashed)
     else

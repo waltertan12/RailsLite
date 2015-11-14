@@ -29,10 +29,17 @@ class Route
 end
 
 class Router
+  include Enumerable
   attr_reader :routes
 
   def initialize
     @routes = []
+  end
+
+  def each(env, &block)
+    @routes.each do |route|
+      block.call(route.run(env.request, env.response))
+    end
   end
 
   # simply adds a new route to the list of routes

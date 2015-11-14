@@ -5,7 +5,9 @@ class Flash
   include Enumerable
 
   def initialize(req)
-    cookie = req.cookies.find { |c| c.name == "flash" } if req
+    # debugger
+    # cookie = req.cookies.find { |c| c.name == "flash" } if req
+    cookie = req.cookies["flash"]
     if cookie
       @now = JSON.parse(cookie.value)
     else

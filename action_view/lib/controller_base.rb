@@ -47,8 +47,11 @@ class ControllerBase
     if already_built_response? 
       fail "Cannot redirect or render more than once"
     end  
-    self.res.content_type = content_type
-    self.res.body = content
+    debugger
+    # self.res.content_type = content_type
+    # self.res.body = content
+    res.write(content)
+    res['Content-Type'] = content_type
     @already_built_response = true
     session.store_session(res)
     flash.store_flash(res)
