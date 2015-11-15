@@ -109,7 +109,7 @@ class Router
     if matched_route
       matched_route.run(req, res)
     else
-      res.body = "Not Found"
+      # res.body = "Not Found"
       res.status = 404
     end
   end

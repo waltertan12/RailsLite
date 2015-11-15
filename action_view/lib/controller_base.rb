@@ -19,6 +19,7 @@ class ControllerBase
     @req = req
     @res = res
     @params = Params.new(req, route_params)
+    # @params = route_params.merge(req.params)
   end
 
   # Helper method to alias @already_built_response

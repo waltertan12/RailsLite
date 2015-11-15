@@ -10,9 +10,11 @@ class Params
   # passed in as a hash to `Params.new` as below:
   def initialize(req, route_params = {})
     @params = route_params
+    @params.merge!(req.params)
+
     # @params.merge!(parse_www_encoded_form(req.query_string))
     # @params.merge!(parse_www_encoded_form(req.body))
-    @params.merge!(parse_www_encoded_form(req.params))
+    # @params.merge!(parse_www_encoded_form(req.params))
   end
 
   def [](key)
