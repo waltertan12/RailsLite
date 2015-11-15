@@ -6,9 +6,9 @@ class Session
   # deserialize the cookie into a hash
   def initialize(req)
     # data = req.cookies.find {|c| c.name == '_rails_lite_app'}
-    data = req.cookies['_rails_lite_app']
+    data = req.cookies['_rails_lite_app'] if req
     if data && data != "{}"
-      @cookie = JSON.parse(data.value)
+      @cookie = JSON.parse(data["value"])
     else
       @cookie = {}
     end

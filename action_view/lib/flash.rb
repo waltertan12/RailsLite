@@ -5,11 +5,11 @@ class Flash
   include Enumerable
 
   def initialize(req)
-    # debugger
     # cookie = req.cookies.find { |c| c.name == "flash" } if req
-    cookie = req.cookies["flash"]
-    if cookie
-      @now = JSON.parse(cookie.value)
+    cookie = req.cookies["flash"] if req
+    # debugger
+    if cookie && cookie != "{}"
+      @now = JSON.parse(cookie["value"])
     else
       @now = {}
     end
@@ -26,6 +26,8 @@ class Flash
   end
 
   def store_flash(res)
+    cookie = {path: "/", value: @flashes.to_json}
+    res.set_cookie("flash", cookie)
     # cookie = WEBrick::Cookie.new(
     #   "flash",
     #   @flashes.to_json
