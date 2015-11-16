@@ -112,7 +112,8 @@ class ControllerBase
 
   def valid_authenticity_token?
     # cookie = req.cookies.find { |c| c.name == "authenticity_token" }
-    cookie = req["_rails_lite_app"]
-    cookie && (params[:authenticity_token] == cookie[:value])
+    # debugger
+    # cookie = req["_rails_lite_app"]
+    params[:authenticity_token] == req[:authenticity_token]
   end
 end

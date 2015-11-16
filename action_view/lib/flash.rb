@@ -9,7 +9,7 @@ class Flash
     cookie = req.cookies["flash"] if req
     # debugger
     if cookie && cookie != "{}"
-      @now = JSON.parse(cookie["value"])
+      @now = JSON.parse(cookie)
     else
       @now = {}
     end

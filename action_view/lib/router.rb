@@ -65,10 +65,12 @@ class Router
   # should return the route that matches this request
   def match(req)
     params = Params.new(req)
+    # debugger
 
-    if req.request_method == "POST" && params[:_method]
+    if req.request_method == "POST" && (params[:_method] || params["_method"])
       new_method = params[:_method].downcase.to_sym
-      req.instance_variable_set("@request_method", new_method)
+      # req.instance_variable_set("@request_method", new_method)
+      req.env['REQUEST_METHOD'] = new_method
     end
 
     routes.find { |route| route.matches?(req) }
@@ -105,6 +107,7 @@ class Router
 
   # either throw 404 or call run on a matched route
   def run(req, res)
+    # debugger
     matched_route = match(req)
     if matched_route
       matched_route.run(req, res)
