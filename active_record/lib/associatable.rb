@@ -53,7 +53,8 @@ module Associatable
     define_method(name) do
       foreign_key = options.foreign_key
       key_value = send(options.primary_key)
-      klass.where(foreign_key => key_value)
+      relation = klass.where(foreign_key => key_value).load
+      relation.records
     end
   end
 
@@ -87,7 +88,9 @@ module Associatable
       final_col   = source_options.primary_key
       final_id    = join_object.send(final_key)
 
-      final_klass.where({ final_col => final_id }).first
+      relation = final_klass.where({ final_col => final_id })
+      relation.load
+      relation.records.first
     end
   end
   # TODO: Refactor by writing all this in SQL

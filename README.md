@@ -9,18 +9,18 @@ Manages controllers and renders views
 
 ### Instructions
 1. Download the [RailsLiteCommandLineHelper](https://github.com/waltertan12/RailsLiteCLHelper) and follow the README
-2. Ensure you have ruby and bundle installed by runnnig the commands 'ruby -v' and 'bundle -v'
+2. Ensure you have ruby and bundle installed by running the commands 'ruby -v' and 'bundle -v'
 3. At the comand prompt, create a new RailsLite application:
 ````
   railslite new AppName
 ````
-5. Still at the command prompt, install the gem bundle:
+4. Still at the command prompt, install the gem bundle:
 ````
   bundle install
 ````
-4. Change directory to `AppName` and start the web server
+5. Change directory to `AppName` and start the web server
 ````
 cd AppName
 railslite server
 ````
-5. Using a web browser, go to `http://localhost:3000`. You'll see a web page rendering 'Hello, RailsLite!'
+6. Using a web browser, go to `http://localhost:3000`. You'll see a web page rendering 'Hello, RailsLite!'

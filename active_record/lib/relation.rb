@@ -1,5 +1,5 @@
 class Relation
-  attr_reader :klass, :table, :values, :loaded, :to_sql
+  attr_reader :klass, :table, :values, :loaded, :to_sql, :records
 
   def initialize(klass, table, values = {})
     @klass  = klass
