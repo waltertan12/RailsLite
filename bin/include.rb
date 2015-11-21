@@ -1,4 +1,5 @@
 require_relative '../config/root_path'
+require 'set'
 
 def require_all_files
   folders = [
@@ -9,16 +10,14 @@ def require_all_files
     "config"
   ]
 
-  included_files = []
+  included_files = Set.new
 
   folders.each do |folder|
     Dir.glob(folder + "/*.rb").each do |file|
-      next if included_files.include?("./" + file)
-
-      require "./" + file
-      included_files << file
+      require "./" + file if included_files.add?("./" + file)
     end
   end
 end
+
 
 require_all_files

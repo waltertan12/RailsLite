@@ -14,5 +14,6 @@ end
 
 Rack::Server.start(
   app: app,
+  # server: 'webrick',
   Port: 3000
 )

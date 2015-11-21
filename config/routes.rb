@@ -11,4 +11,6 @@ ROUTER.draw do
   patch   Regexp.new("^/dogs/(?<id>\\d+)$"),      DogsController, :update
   get     Regexp.new("^/dogs/(?<id>\\d+)$"),      DogsController, :show
   delete  Regexp.new("^/dogs/(?<id>\\d+)$"),      DogsController, :destroy
+  
+  get     Regexp.new("^/humans/(?<id>\\d+)$"),      HumansController, :show
 end

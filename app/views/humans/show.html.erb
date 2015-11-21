@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DOG APP</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Pacifico|Cookie|Comfortaa|Ubuntu|Varela+Round">
+  <style>
+    body {
+      font-family: "Varela Round";
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <ul>
+      <% flash.each do |type, message| %>
+        <div class="alert alert-<%= type %>">
+          <li><%= message %></li>
+        </div>
+      <% end %>
+    </ul>
+
+    <h1><%= @human.name %></h1>
+    <br>
+    <!-- <form action="/dogs/<#%= @human.id %>" method="POST">
+      <input type="hidden"
+             name="authenticity_token"
+             value="<#%= form_authenticity_token %>">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="Delete <#%= @human.name %> :(">
+    </form> -->
+    <br>
+    <!-- <p><a href="/dogs/<#%= @human.id %>/edit">Edit <#%= @human.name %></a></p>  -->
+    
+    <br>
+    <!-- <a href="<#%= dogs_path %>">Back to Dog Index</a> -->
+  </div>
+</body>
+</html>
+
