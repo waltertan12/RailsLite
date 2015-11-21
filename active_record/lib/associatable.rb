@@ -1,3 +1,4 @@
+require 'byebug'
 class AssocOptions
   attr_accessor(
     :foreign_key,
@@ -47,7 +48,12 @@ module Associatable
 
   def has_many(name, options = {})
     options = HasManyOptions.new(name, self, options)
-    klass = options.model_class
+    begin
+      klass = options.model_class
+    rescue
+      require_relative "../../app/models/" + options.class_name.downcase + ".rb"
+      klass = options.model_class
+    end
     self.assoc_options[name] = options
 
     define_method(name) do
@@ -104,7 +110,8 @@ module Associatable
       join_klass  = through_options.model_class
       join_key    = through_options.foreign_key
       # join_id     = join_klass.send()
-      join_objects = join_klass.where({join_key => id})
+      join_objects = join_klass.where({join_key => id}).load
+      join_objects = join_objects.records
       
       final_klass = source_options.model_class
       final_key   = source_options.primary_key
@@ -117,7 +124,8 @@ module Associatable
       result = []
 
       final_ids.each do |final_id|
-        result += final_klass.where({ final_col => final_id })
+        relation = final_klass.where({ final_col => final_id }).load
+        result += relation.records
       end
 
       result

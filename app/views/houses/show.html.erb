@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>DOG APP</title>
+  <title><%= @house.name %> | DOG APP</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Pacifico|Cookie|Comfortaa|Ubuntu|Varela+Round">
   <style>
@@ -20,13 +20,20 @@
       <% end %>
     </ul>
 
-    <h1><%= @human.name %></h1>
-    <h3>Dog Friends:</h3>
-    <ul>
-      <% @human.dogs.each do |dog| %>
-        <li><a href="<%= dogs_path(dog) %>"><%= dog.name %></a></li>
-      <% end %>
-    </ul>
+    <h1><%= @house.name %></h1>
+    <h3>Inhabitants:</h3>
+    <h4>Humans</h4>
+      <ul>
+        <% @house.humans.each do |human| %>
+          <li><a href="<%= humans_path(human) %>"><%= human.name %></a></li>
+        <% end %>
+      </ul>
+    <h4>Dogs</h4>
+      <ul>
+        <% @house.dogs.each do |dog| %>
+          <li><a href="<%= dogs_path(dog) %>"><%= dog.name %></a></li>
+        <% end %>
+      </ul>
     <br>
     <!-- <form action="/dogs/<#%= @human.id %>" method="POST">
       <input type="hidden"

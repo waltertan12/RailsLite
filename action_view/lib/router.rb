@@ -58,7 +58,7 @@ class Router
   [:get, :post, :put, :patch, :delete].each do |http_method|
     define_method(http_method) do |pattern, controller_class, action_name|
       add_route(pattern, http_method, controller_class, action_name)
-      create_helper_route(pattern, controller_class) if http_method == :get
+      create_helper_route(pattern) if http_method == :get
     end
   end
 
@@ -77,11 +77,11 @@ class Router
   end
 
   # TODO: Add helper routes method to make model_path
-  def create_helper_route(pattern, controller_class)
+  def create_helper_route(pattern)
     words = pattern.source.scan(/\/(\w+)/).flatten.reverse
     method_name = find_route_name(pattern)
 
-    controller_class.send(:define_method, "#{method_name}") do |args = nil|
+    ControllerBase.send(:define_method, "#{method_name}") do |args = nil|
         path = "/"
         if words.length == 1
             if args

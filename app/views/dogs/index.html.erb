@@ -30,19 +30,17 @@
       <tr>
         <th>Dog</th>
         <th></th>
-        <th>Owner</th>
+        <th>Human Friend</th>
 
       </tr>
       <% @dogs.each do |dog|%>
         <tr>
           <td><%= dog.name %></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td><%= dog.owner %></td>
+          <td><%= dog.human.name %></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <!-- <td><a href="dogs/<#%= dog.id %>">show</a></td> -->
           <td><a href="<%= dogs_path(dog) %>">show</a></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <!-- <td><a href="dogs/<%#= dog.id %>/edit">edit</a></td> -->
           <td><a href="<%= edit_dogs_path(dog) %>">edit</a></td>
 
         </tr>
