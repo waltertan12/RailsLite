@@ -1,6 +1,5 @@
 #!/user/bin/env ruby
 
-require 'webrick'
 require 'rack'
 require 'byebug'
 require_relative './include'
@@ -14,6 +13,6 @@ end
 
 Rack::Server.start(
   app: app,
-  # server: 'webrick',
+  Host: "127.0.0.1",
   Port: 3000
 )

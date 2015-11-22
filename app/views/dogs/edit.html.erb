@@ -30,17 +30,27 @@
              value="<%= form_authenticity_token %>">
 
       <label>Name<br>
-        <input type="text" name="dog[name]" value="<%= @dog.name %>">
+        <input class="form-control"
+               type="text" name="dog[name]" value="<%= @dog.name %>">
       </label><br>
 
       <br>
-
-      <label>Owner<br>
-        <input type="text" name="dog[owner]" value="<%= @dog.owner %>">
+      <label>Human Friend<br>
+        <select>
+          <% @humans.each do |human|%>
+            <option value="<%= human.name %>"><%= human.name %></option>
+          <% end %>
+        </select>
       </label><br>
 
+<!--       <label>Owner<br>
+        <input class="form-control"
+               type="text" name="dog[owner]" value="<#%= @dog.owner %>">
+      </label><br> -->
+
       <br>
-      <input type="submit" value="Update Dog!">
+      <input class="btn btn-primary" 
+             type="submit" value="Update Dog!">
     </form>
     <br>
     <a href="/dogs">Back to Dog Index</a>

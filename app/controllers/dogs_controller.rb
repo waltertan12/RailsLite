@@ -3,6 +3,7 @@ class DogsController < ControllerBase
 
   def new
     @dog = Dog.new
+    @humans = Human.all
     render :new
   end
 
@@ -20,6 +21,7 @@ class DogsController < ControllerBase
 
   def edit
     @dog = Dog.find(params[:id])
+    @humans = Human.all
     render :edit
   end
 

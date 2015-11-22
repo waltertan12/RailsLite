@@ -30,8 +30,12 @@
         <input type="text" name="dog[name]" value="<%= @dog.name %>">
       </label><br>
 
-      <label>Owner<br>
-        <input type="text" name="dog[owner]" value="<%= @dog.owner %>">
+      <label>Human Friend<br>
+        <select>
+          <% @humans.each do |human|%>
+            <option value="<%= human.name %>"><%= human.name %></option>
+          <% end %>
+        </select>
       </label><br>
       <br>
       <input type="submit" value="Create a Dog!">
