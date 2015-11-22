@@ -36,9 +36,13 @@
 
       <br>
       <label>Human Friend<br>
-        <select>
+        <select name="dogs[human_id]">
+          <option value="0">None</option>
           <% @humans.each do |human|%>
-            <option value="<%= human.name %>"><%= human.name %></option>
+            <option value="<%= human.id %>"
+              <%= "selected='selected'" if @dog && @dog.human.id == human.id %>>
+              <%= human.name %>
+            </option>
           <% end %>
         </select>
       </label><br>
