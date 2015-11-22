@@ -1,6 +1,7 @@
 # RailsLite Project
 source "https://rubygems.org"
 
+gem 'thin'
 gem 'webrick'
 gem 'activesupport'
 gem 'rspec', '~> 3.1.0'
