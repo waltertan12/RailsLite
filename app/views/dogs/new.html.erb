@@ -5,39 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Pacifico|Cookie|Comfortaa|Ubuntu|Varela+Round">
   <style>
-    body {
-      font-family: "Varela Round";
-    }
-    a {
-      /*transition-duration: 0.3s;*/
-      position: relative;
-    }
-    a:hover {
-      transition-duration: 0.3s;
-      text-decoration: none;
-    }
-    a:before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 1px;
-      bottom: 0;
-      left: 0;
-      background-color: #23527c;
-      visibility: hidden;
-      -webkit-transform: scaleX(0);
-      transform: scaleX(0);
-      -webkit-transition: all 0.3s ease-in-out 0s;
-      transition: all 0.3s ease-in-out 0s;
-    }
-    a:hover:before {
-      visibility: visible;
-      -webkit-transform: scaleX(1);
-      transform: scaleX(1);
-    }
-    .btn {
-      transition-duration: 0.3s;
-    }
+    <%= ScssAssets.render_styles %>
   </style>
 </head>
 <body>
