@@ -9,7 +9,7 @@ class DogsController < ControllerBase
 
   def create
     @dog = Dog.new(params[:dog])
-
+    
     if @dog.save
       flash[:success] = "Successfully created a new dog"
       redirect_to("/dogs")
