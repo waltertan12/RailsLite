@@ -12,11 +12,14 @@ module Validatable
 
       if !validation[:presence].nil?
         validation[:presence] == !instance_value.nil?
-      elsif !validation[:uniquness].nil?
+      elsif !validation[:uniqueness].nil?
         all_instances = self.all
 
+        values = Set.new
+
         all_instances.all? do |instance|
-          instance_value = instance.send(column)
+          !values.add?(instance.send(column)).nil? && 
+          object.send(column) != instance.send(column)
         end
       elsif !validation[:length].nil?
         check = validation[:length].first[0]
