@@ -1,4 +1,4 @@
-require_relative 'db_connection'
+# require_relative 'db_connection'
 require_relative './associatable'
 require_relative './searchable'
 require_relative './validatable'

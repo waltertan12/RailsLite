@@ -31,10 +31,12 @@ module Validatable
           check = len_validation[0]
           param = validation[:length][check]
 
+          puts "Instance Value: #{instance_value.length}"
+
           case check
-          when :max
+          when :maximum
             valid &= instance_value.length <  param
-          when :min
+          when :minimum
             valid &= instance_value.length >= param
           when :in
             valid &= instance_value.length <  param.max &&

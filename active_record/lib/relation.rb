@@ -39,6 +39,7 @@ class Relation
       WHERE
         #{where_string}
       SQL
+      
     @to_sql.chomp!
   end
 

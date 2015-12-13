@@ -1,3 +1,4 @@
+require 'byebug'
 class DogsController < ControllerBase
   protect_from_forgery
 
@@ -9,6 +10,8 @@ class DogsController < ControllerBase
 
   def create
     @dog = Dog.new(params[:dog])
+    debugger
+    p @dog
     
     if @dog.save
       flash[:success] = "Successfully created a new dog"

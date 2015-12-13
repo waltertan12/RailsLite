@@ -1,4 +1,3 @@
-require 'byebug'
 class AssocOptions
   attr_accessor(
     :foreign_key,
