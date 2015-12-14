@@ -1,21 +1,25 @@
 module Validatable
   def validates(column, options = {})
     @to_validate = {} if @to_validate.nil?
-    @to_validate[column] = options
+    @to_validate[column] = {} if @to_validate[column].nil?
+    @to_validate[column] = @to_validate[column].merge(options)
   end
 
   def valid?(object)
     return true if @to_validate.nil?
+
+
     @to_validate.all? do |column, validation|
       instance_value = object.send(column)
 
       valid = true
 
-      if !validation[:presence].nil?
-        valid &= validation[:presence] == !instance_value.nil?
+      if validation[:presence]
+        puts instance_value.nil?
+        valid &= !instance_value.nil?
       end
 
-      if !validation[:uniqueness].nil?
+      if validation[:uniqueness]
         all_instances = self.all
 
         values = Set.new
@@ -26,20 +30,18 @@ module Validatable
         end
       end
 
-      if !validation[:length].nil?
+      if validation[:length]
         validation[:length].each do |len_validation|
           check = len_validation[0]
           param = validation[:length][check]
 
-          puts "Instance Value: #{instance_value.length}"
-
           case check
           when :maximum
-            valid &= instance_value.length <  param
+            valid &= instance_value && instance_value.length <  param
           when :minimum
-            valid &= instance_value.length >= param
+            valid &= instance_value && instance_value.length >= param
           when :in
-            valid &= instance_value.length <  param.max &&
+            valid &= instance_value && instance_value.length <  param.max &&
             instance_value.length >= param.min
           end
         end
