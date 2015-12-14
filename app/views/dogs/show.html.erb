@@ -20,14 +20,22 @@
 
     <h1><%= @dog.name %></h1>
     <h3>House: 
+      <% if @dog.human && @dog.house %>
       <a href="<%= houses_path(@dog.house) %>">
         <%= @dog.house.name %>
       </a>
+      <% else %>
+        <p>Stray :(</p>
+      <% end %>
     </h3>
-    <h3>Human Friend: 
-      <a href="<%= humans_path(@dog.human) %>">
-        <%= @dog.human.name %>
-      </a>
+    <h3>Human Friend:
+      <% if @dog.human %>
+        <a href="<%= humans_path(@dog.human) %>">
+          <%= @dog.human.name %>
+        </a>
+      <% else %>
+        <p>None :(</p>
+      <% end %>
     </h3>
     <br><br>
     <form action="/dogs/<%= @dog.id %>" method="POST">

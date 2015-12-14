@@ -36,7 +36,7 @@
         <tr>
           <td><%= dog.name %></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td><%= dog.human.name %></td>
+          <td><%= dog.human ? dog.human.name : 'None' %></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td><a href="<%= dogs_path(dog) %>">show</a></td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

@@ -1,7 +1,6 @@
 #!/user/bin/env ruby
 
 require 'rack'
-require 'byebug'
 require_relative './include'
  
 app = Proc.new do |env|
