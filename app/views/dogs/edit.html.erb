@@ -34,10 +34,12 @@
       <br>
       <label>Human Friend<br>
         <select name="dog[human_id]">
-          <option value="0">None</option>
+          <option value="0" <%= "selected='selected'" unless @dog.human %>>
+            None
+          </option>
           <% @humans.each do |human|%>
             <option value="<%= human.id %>"
-              <%= "selected='selected'" if @dog && @dog.human.id == human.id %>>
+              <%= "selected='selected'" if @dog &&  @dog.human && @dog.human.id == human.id %>>
               <%= human.name %>
             </option>
           <% end %>
