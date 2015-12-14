@@ -15,7 +15,6 @@ module Validatable
       valid = true
 
       if validation[:presence]
-        puts instance_value.nil?
         valid &= !instance_value.nil?
       end
 
