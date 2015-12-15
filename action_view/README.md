@@ -24,3 +24,32 @@ ROUTER.draw do
   delete  Regexp.new("^/models/(?<id>\\d+)$"),      ModelsController, :destroy
 end
 ````
+
+#### Flash
+Flash is a temporary way to pass primitive types (Strings, Symbols, Arrays) between controller actions. Anything inserted into the Flash will be available on the next action and the action after that. If you only want the data to persist for the next action, use Flash.now.
+
+````Ruby
+# Controller
+class DogsController
+  def create
+    @dog = Dog.new(params[:dog])
+
+    if @dog.save
+      flash[:success] = "Dog successfully created!"
+      redirect_to :index
+    else
+      flash.now[:danger] = "Dog could not be saved!"
+      render :new
+    end
+  end
+end
+
+# dogs/index.html.erb
+<ul>
+  <% flash.each do |type, message| %>
+    <div class="alert alert-<%= type %>">
+      <li><%= message %></li>
+    </div>
+  <% end %>
+</ul>
+````
