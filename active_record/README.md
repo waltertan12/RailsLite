@@ -9,7 +9,7 @@ class ClassName < ActiveRecordBase
   # Currently, ActiveRecordBase#validates can only check for uniqueness, presence, and length
   # Simply write it in this form
   validates :column_name, presence: true
-  validates :column_name, length: {minimum: 8}
+  validates :column_name, length: { minimum: 8 }
   validates :column_name, uniqueness: true
 end
 ````
@@ -43,24 +43,30 @@ RailsLite supports `has_one`, `has_many`, `has_one_through`, and `has_many_throu
 
 ````ruby
 class Dog
-  belongs_to :human, {
-    foreign_key: "human_id", 
-    primary_key: "id", 
-    class_name: "Human"
-  }
+  belongs_to :human
+  has_one_through :house, :human, :house
 end
 
 class Human
+  belongs_to :house
   has_many :dogs
-  has_one :house
 end
 
 class House
-  belongs_to :human, {
-    foreign_key: "human_id", 
-    primary_key: "id", 
-    class_name: "Human"
-  }
-  has_many_through :dogs, :human
+  belongs_to :human
+  has_one_through :house, :human, :house
 end
+````
+
+### Querying
+RailsLite has a few basic querying methods:
+
+````ruby
+Model.all # Returns all records of the model
+Model.find(id) # Returns a single record given an id
+
+# Relation#where query 
+Model.where("column_name = thing") # Pass a string with SQL
+Model.where(column_name: "thing") # Pass an options hash
+Model.where("column_name = thing").where(column_two: "thing_two") # Supports chaining
 ````
