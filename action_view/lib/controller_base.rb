@@ -55,6 +55,15 @@ class ControllerBase
     flash.store_flash(res)
   end
 
+  def render_asset(params)
+    name = params["asset_name"]
+    extension = params["extension"]
+    folder = params["folder"]
+    file = File.read("#{ROOT_PATH}app/assets/#{folder}/#{name}.#{extension}")
+    extension = "javascript" if extension == "js"
+    render_content(file, "text/#{extension}")
+  end
+
   def render(template_name)
     file_path = "#{ROOT_PATH}app/views/#{self.class.to_s.underscore.sub("_controller","")}/#{template_name}.html.erb"
 

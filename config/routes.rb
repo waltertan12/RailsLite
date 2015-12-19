@@ -14,5 +14,6 @@ ROUTER.draw do
   
   get     Regexp.new("^/humans/(?<id>\\d+)$"),      HumansController, :show
   get     Regexp.new("^/houses/(?<id>\\d+)$"),      HousesController, :show
-  get Regexp.new("^/assets/(?<asset_name>\.+)\.(?<extension>css|js|scss)$"), AssetsController, :show
+  # Route for assets
+  get Regexp.new("^/assets/(?<folder>\\w+)/(?<asset_name>\\w+)\.(?<extension>css|js|scss|jsx)$"), AssetsController, :show
 end
