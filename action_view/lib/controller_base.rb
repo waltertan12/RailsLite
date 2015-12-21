@@ -61,6 +61,7 @@ class ControllerBase
     folder = params["folder"]
     file = File.read("#{ROOT_PATH}app/assets/#{folder}/#{name}.#{extension}")
     extension = "javascript" if extension == "js"
+    extension = "babel" if extension == "jsx"
     render_content(file, "text/#{extension}")
   end
 
