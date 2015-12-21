@@ -10,8 +10,17 @@ app = Proc.new do |env|
   res.finish
 end
 
-Rack::Server.start(
-  app: app,
-  Host: "0.0.0.0",
-  Port: 3000
-)
+
+if __FILE__ == $PROGRAM_NAME
+  if ARGV[0] == "-p" && ARGV[1]
+    port = ARGV[1].to_i
+  else
+    port = 80
+  end
+
+  Rack::Server.start(
+    app: app,
+    Host: "0.0.0.0",
+    Port: port
+  )
+end

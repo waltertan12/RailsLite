@@ -1,7 +1,25 @@
 require 'tilt'
 
-class ScssAssets
+class AssetPipeline
   @@styles = nil
+
+  def self.pipeline(folders = ["javascripts", "stylesheets", "images"])
+    result = ""
+
+    folders.each do |folder|
+      files = Dir.glob("./app/assets/#{folder}/**.{js,css,scss,jsx}")
+      files.each do |file|
+        case folder
+        when "javascripts"
+          result += "<script src='#{file[5..-1]}'></script>\n"
+        when "stylesheets"
+          result += "<link rel='stylesheet' href='#{file[5..-1]}'>\n"
+        end
+      end
+    end
+
+    result
+  end
 
   def self.render_styles
     unless @@styles

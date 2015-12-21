@@ -4,9 +4,7 @@
   <title>Edit Dog | DOG APP</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster|Pacifico|Cookie|Comfortaa|Ubuntu|Varela+Round">
-  <style>
-    <%= ScssAssets.render_styles %>
-  </style>
+  <%= AssetPipeline.pipeline %>
 </head>
 <body>
   <div class="container">
@@ -33,7 +31,7 @@
 
       <br>
       <label>Human Friend<br>
-        <select name="dog[human_id]">
+        <select name="dog[human_id]" class="form-control">
           <option value="0" <%= "selected='selected'" unless @dog.human %>>
             None
           </option>
